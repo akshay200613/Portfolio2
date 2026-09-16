@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshay C | ML Engineer</title>
+  <meta name="description" content="Akshay C — Machine Learning Engineer. Building, training, and deploying ML systems end to end — from raw data to production-ready APIs." />
+  <meta name="keywords" content="Machine Learning, AI, ML Engineer, Python, TensorFlow, PyTorch, LangChain, RAG, FastAPI" />
+  <meta property="og:title" content="Akshay C | ML Engineer" />
+  <meta property="og:description" content="Building, training, and deploying ML systems end to end — from raw data to production-ready APIs." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Favicon inline SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230a0a0f'/><text y='72' x='12' font-size='62' font-family='monospace' fill='%2300f5ff'>A</text></svg>" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======================== LOADING SCREEN ======================== -->
+  <div id="loading-screen" aria-hidden="true">
+    <div class="terminal-box">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">portfolio.py</span>
+      </div>
+      <div class="terminal-body">
+        <p class="terminal-line"><span class="prompt">$</span> <span id="terminal-text"></span><span class="cursor-blink">▋</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== CUSTOM CURSOR ======================== -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ======================== SCROLL PROGRESS ======================== -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ======================== NAVBAR ======================== -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Home">
+        <span class="logo-bracket">[</span>AC<span class="logo-bracket">]</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <a href="mailto:akshayyy201@gmail.com" class="nav-cta" aria-label="Email Akshay">Hire Me</a>
+    </div>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section id="hero" aria-labelledby="hero-name">
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <div class="hero-badge reveal-up">
+        <span class="badge-dot"></span>
+        <span class="mono">AI/ML Intern @ Brototype · Best Performer · Calicut Hub</span>
+      </div>
+      <h1 id="hero-name" class="hero-name reveal-up">
+        <span class="name-first">Akshay</span> <span class="name-last accent-glow">C</span>
+      </h1>
+      <div class="hero-title-wrap reveal-up">
+        <span class="hero-static mono">&gt;&nbsp;</span>
+        <span id="typewriter" class="hero-typewriter"></span>
+        <span class="type-cursor" aria-hidden="true">|</span>
+      </div>
+      <p class="hero-tagline reveal-up">Building, training, and deploying ML systems end to end —<br/>from raw data to production-ready APIs.</p>
+      <div class="hero-actions reveal-up">
+        <a href="#projects" class="btn btn-primary magnetic">View Projects</a>
+        <a href="#contact" class="btn btn-ghost magnetic">Get in Touch</a>
+      </div>
+      <div class="hero-contacts reveal-up">
+        <a href="mailto:akshayyy201@gmail.com" class="contact-chip" aria-label="Email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          akshayyy201@gmail.com
+        </a>
+        <a href="tel:8590006364" class="contact-chip" aria-label="Phone">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          8590006364
+        </a>
+        <a href="https://www.linkedin.com/in/akshay-c-53bb09368/" target="_blank" rel="noopener noreferrer" class="contact-chip" aria-label="LinkedIn profile">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/akshay200613" target="_blank" rel="noopener noreferrer" class="contact-chip" aria-label="GitHub profile">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span class="mono">scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ======================== ABOUT ======================== -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="mono accent">01.</span> About</div>
+      <h2 id="about-heading" class="section-title reveal-up">Who I Am</h2>
+      <div class="about-grid">
+        <div class="about-text reveal-left">
+          <p>Machine Learning Engineer with hands-on, project-driven experience <strong>building, training, and deploying ML models</strong> to solve real-world problems end to end. Proficient in Python (Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch) for data preprocessing, feature engineering, and developing regression, classification, and clustering models across structured and unstructured data.</p>
+          <p>Experienced in evaluating and optimizing model performance using cross-validation and hyperparameter tuning, working with SQL and relational databases, and deploying models as <strong>production-ready APIs</strong> integrated with applications using FastAPI and Docker. Comfortable explaining complex model behavior to both technical and non-technical stakeholders.</p>
+          <div class="about-highlight glass-card">
+            <div class="highlight-icon" aria-hidden="true">🏆</div>
+            <div>
+              <p class="highlight-title">AI/ML Intern — Brototype</p>
+              <p class="highlight-sub">Recognized as <strong>Best Performer of the Calicut Hub</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="about-stats reveal-right">
+          <div class="stat-card glass-card" tabindex="0">
+            <span class="stat-number accent">6+</span>
+            <span class="stat-label">ML Projects</span>
+          </div>
+          <div class="stat-card glass-card" tabindex="0">
+            <span class="stat-number accent">15+</span>
+            <span class="stat-label">ML Algorithms</span>
+          </div>
+          <div class="stat-card glass-card" tabindex="0">
+            <span class="stat-number accent">97.1<span class="stat-unit">%</span></span>
+            <span class="stat-label">HSC Score</span>
+          </div>
+          <div class="stat-card glass-card" tabindex="0">
+            <span class="stat-number accent">2</span>
+            <span class="stat-label">IBM Certifications</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== SKILLS ======================== -->
+  <section id="skills" aria-labelledby="skills-heading">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="mono accent">02.</span> Skills</div>
+      <h2 id="skills-heading" class="section-title reveal-up">Technical Arsenal</h2>
+      <div class="skills-grid">
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">⌨️</span>
+            <h3 class="skill-cat-title">Programming</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">📦</span>
+            <h3 class="skill-cat-title">Python Libraries</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">Scikit-learn</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">Keras</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">Seaborn</span>
+            <span class="skill-tag">OpenCV</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">🧠</span>
+            <h3 class="skill-cat-title">ML Algorithms</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Regression</span>
+            <span class="skill-tag">Classification</span>
+            <span class="skill-tag">Clustering</span>
+            <span class="skill-tag">XGBoost</span>
+            <span class="skill-tag">CNN</span>
+            <span class="skill-tag">RNN / LSTM</span>
+            <span class="skill-tag">Time Series</span>
+            <span class="skill-tag">Ensemble Methods</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">📊</span>
+            <h3 class="skill-cat-title">Data & Feature Engineering</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">EDA</span>
+            <span class="skill-tag">Data Cleaning</span>
+            <span class="skill-tag">Missing Value Imputation</span>
+            <span class="skill-tag">Encoding</span>
+            <span class="skill-tag">Scaling</span>
+            <span class="skill-tag">Structured & Unstructured Data</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">📈</span>
+            <h3 class="skill-cat-title">Model Evaluation</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Cross-Validation</span>
+            <span class="skill-tag">GridSearchCV</span>
+            <span class="skill-tag">SHAP</span>
+            <span class="skill-tag">Precision / Recall / F1</span>
+            <span class="skill-tag">ROC-AUC</span>
+            <span class="skill-tag">MAE / RMSE</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">🚀</span>
+            <h3 class="skill-cat-title">Deployment & MLOps</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">Streamlit</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">CI/CD</span>
+            <span class="skill-tag">Vercel</span>
+            <span class="skill-tag">GCP</span>
+            <span class="skill-tag">Kubernetes</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">⚡</span>
+            <h3 class="skill-cat-title">Big Data</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Apache Spark</span>
+            <span class="skill-tag">PySpark</span>
+            <span class="skill-tag">MLlib</span>
+            <span class="skill-tag">Hadoop</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">🗄️</span>
+            <h3 class="skill-cat-title">Databases</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">Qdrant</span>
+            <span class="skill-tag">ChromaDB</span>
+          </div>
+        </div>
+
+        <div class="skill-category glass-card reveal-up skill-cat-featured" tabindex="0">
+          <div class="skill-cat-header">
+            <span class="skill-icon" aria-hidden="true">🤖</span>
+            <h3 class="skill-cat-title">AI / LLM</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">LangGraph</span>
+            <span class="skill-tag">Hugging Face</span>
+            <span class="skill-tag">Google Gemini</span>
+            <span class="skill-tag">RAG</span>
+            <span class="skill-tag">NLP</span>
+            <span class="skill-tag">Vector Search</span>
+            <span class="skill-tag">Agentic AI</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROJECTS ======================== -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="mono accent">03.</span> Projects</div>
+      <h2 id="projects-heading" class="section-title reveal-up">Featured Work</h2>
+      <div class="projects-grid">
+
+        <!-- MediAI -->
+        <article class="project-card glass-card tilt-card reveal-up featured-project" tabindex="0" aria-label="MediAI project">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <div class="project-number mono accent">01</div>
+              <div class="project-links">
+                <a href="https://github.com/akshay200613/MediAI" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="MediAI GitHub repository">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+                <a href="mediai-teal.vercel.app/login" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="MediAI live demo">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">MediAI</h3>
+            <p class="project-subtitle">AI-Powered Medical Information & Assistance Platform</p>
+            <ul class="project-bullets">
+              <li>RAG platform with Google Gemini for hallucination-resistant medical responses</li>
+              <li>Hybrid retrieval: BM25 + semantic vector search (Qdrant) with reranking & query rewriting</li>
+              <li>Agent-based architecture via LangGraph/LangChain with appointment workflows</li>
+              <li>Metrics: <span class="mono accent">Recall@5 0.80</span> · <span class="mono accent">MRR 0.70</span> · <span class="mono accent">Correctness 0.742</span> · <span class="mono accent">Refusal 1.0</span></li>
+              <li>Deployed: Docker/Docker Compose · Vercel frontend · GCP VM backend</li>
+            </ul>
+            <div class="project-stack">
+              <span class="stack-tag">Next.js</span>
+              <span class="stack-tag">FastAPI</span>
+              <span class="stack-tag">Gemini</span>
+              <span class="stack-tag">LangChain</span>
+              <span class="stack-tag">LangGraph</span>
+              <span class="stack-tag">Qdrant</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Fraud Detection -->
+        <article class="project-card glass-card tilt-card reveal-up" tabindex="0" aria-label="Real-Time Fraud Detection System project">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <div class="project-number mono accent">02</div>
+              <div class="project-links">
+                <a href="https://github.com/akshay200613/Real-Time-Fraud-Detection" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Fraud Detection GitHub">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Real-Time Fraud Detection</h3>
+            <p class="project-subtitle">Distributed ML Pipeline at Scale</p>
+            <ul class="project-bullets">
+              <li>Distributed pipeline using Apache Spark (PySpark, MLlib) for scalable ETL & training</li>
+              <li>Benchmarked Random Forest, GBT, Decision Tree, Logistic Regression — selected by AUC</li>
+              <li>FastAPI service for real-time prediction + Streamlit dashboard for monitoring</li>
+              <li>Fully containerized with Docker</li>
+            </ul>
+            <div class="project-stack">
+              <span class="stack-tag">PySpark</span>
+              <span class="stack-tag">MLlib</span>
+              <span class="stack-tag">FastAPI</span>
+              <span class="stack-tag">Streamlit</span>
+              <span class="stack-tag">Docker</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Churn Prediction -->
+        <article class="project-card glass-card tilt-card reveal-up" tabindex="0" aria-label="Telecom Churn Prediction project">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <div class="project-number mono accent">03</div>
+              <div class="project-links">
+                <a href="https://github.com/akshay200613/telecom-churn-prediction" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Churn Prediction GitHub">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+                <a href="telecom-churn-project.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Churn Prediction live demo">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Telecom Churn Prediction</h3>
+            <p class="project-subtitle">ML Classification Pipeline</p>
+            <ul class="project-bullets">
+              <li>Random Forest & XGBoost to predict telecom churn from usage, billing & demographic data</li>
+              <li>Full preprocessing: cleaning, missing values, encoding, feature engineering</li>
+              <li>Hyperparameter tuning with GridSearchCV</li>
+              <li>Serverless FastAPI backend on Vercel + Streamlit dashboard</li>
+            </ul>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Scikit-learn</span>
+              <span class="stack-tag">XGBoost</span>
+              <span class="stack-tag">FastAPI</span>
+              <span class="stack-tag">Streamlit</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Smartwatch Price -->
+        <article class="project-card glass-card tilt-card reveal-up" tabindex="0" aria-label="Smartwatch Price Predictor project">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <div class="project-number mono accent">04</div>
+              <div class="project-links">
+                <a href="https://github.com/akshay200613/smartwatch-price-predictor" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Smartwatch Predictor GitHub">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+                <a href="smartwatch-price-predictor.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Smartwatch Predictor live demo">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Smartwatch Price Predictor</h3>
+            <p class="project-subtitle">Classification Model Deployment</p>
+            <ul class="project-bullets">
+              <li>Predicts smartwatch price category from brand, specs, display, connectivity & battery life</li>
+              <li>EDA, feature engineering, categorical encoding pipeline</li>
+              <li>Serverless FastAPI backend on Vercel + Streamlit dashboard</li>
+            </ul>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Scikit-learn</span>
+              <span class="stack-tag">FastAPI</span>
+              <span class="stack-tag">Streamlit</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Time Series -->
+        <article class="project-card glass-card tilt-card reveal-up" tabindex="0" aria-label="Time Series Forecasting project">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <div class="project-number mono accent">05</div>
+              <div class="project-links">
+                <a href="[PLACEHOLDER_TIMESERIES_GITHUB]" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Time Series GitHub">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Time Series Forecasting</h3>
+            <p class="project-subtitle">Walmart Sales & AAPL Stock</p>
+            <ul class="project-bullets">
+              <li>Time series decomposition, ADF stationarity testing, ACF/PACF analysis</li>
+              <li>Classical models: ARIMA, SARIMA, Exponential Smoothing with auto_arima tuning</li>
+              <li>LSTM deep learning model for multi-step stock price prediction</li>
+              <li>Comparative benchmarking of classical vs. deep learning approaches</li>
+            </ul>
+            <div class="project-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">statsmodels</span>
+              <span class="stack-tag">pmdarima</span>
+              <span class="stack-tag">LSTM</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ML Benchmarking -->
+        <article class="project-card glass-card tilt-card reveal-up" tabindex="0" aria-label="ML Prediction System Benchmarking project">
+          <div class="project-card-inner">
+            <div class="project-header">
+              <div class="project-number mono accent">06</div>
+              <div class="project-links">
+                <a href="https://github.com/akshay200613" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="ML Benchmark GitHub">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">ML Prediction System</h3>
+            <p class="project-subtitle">Classification & Regression Benchmarking</p>
+            <ul class="project-bullets">
+              <li>Benchmarked Logistic Regression, KNN, XGBoost with stratified k-fold CV</li>
+              <li>Full Scikit-learn preprocessing pipeline with GridSearchCV tuning</li>
+              <li>SHAP-based feature importance analysis for stakeholder validation</li>
+            </ul>
+            <div class="project-stack">
+              <span class="stack-tag">Scikit-learn</span>
+              <span class="stack-tag">XGBoost</span>
+              <span class="stack-tag">SHAP</span>
+              <span class="stack-tag">Python</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== EDUCATION ======================== -->
+  <section id="education" aria-labelledby="education-heading">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="mono accent">04.</span> Education</div>
+      <h2 id="education-heading" class="section-title reveal-up">Education & Certifications</h2>
+      <div class="timeline">
+
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div class="timeline-card glass-card">
+            <div class="timeline-meta mono">2024</div>
+            <h3 class="timeline-title">Higher Secondary Education (Science)</h3>
+            <p class="timeline-org">Rahmaniya HSS, Calicut</p>
+            <div class="timeline-score">
+              <span class="score-label">Score</span>
+              <span class="score-value accent mono">97.1%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-right">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div class="timeline-card glass-card">
+            <div class="timeline-meta mono">April 2026</div>
+            <h3 class="timeline-title">Deep Learning with Keras and TensorFlow</h3>
+            <p class="timeline-org">IBM · Coursera</p>
+            <div class="cert-badge">
+              <span class="cert-icon" aria-hidden="true">🎓</span>
+              <span>IBM Certified</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div class="timeline-card glass-card">
+            <div class="timeline-meta mono">April 2026</div>
+            <h3 class="timeline-title">Machine Learning with Python</h3>
+            <p class="timeline-org">IBM · Coursera</p>
+            <div class="cert-badge">
+              <span class="cert-icon" aria-hidden="true">🎓</span>
+              <span>IBM Certified</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== SOFT SKILLS ======================== -->
+  <section id="soft-skills" aria-labelledby="softskills-heading">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="mono accent">05.</span> Soft Skills</div>
+      <h2 id="softskills-heading" class="section-title reveal-up">Beyond the Code</h2>
+      <div class="soft-skills-wrap">
+        <div class="soft-skill-chip reveal-up" tabindex="0">Analytical & Critical Thinking</div>
+        <div class="soft-skill-chip reveal-up" tabindex="0">Data Storytelling</div>
+        <div class="soft-skill-chip reveal-up" tabindex="0">Team Collaboration & Communication</div>
+        <div class="soft-skill-chip reveal-up" tabindex="0">Curiosity & Continuous Learning</div>
+        <div class="soft-skill-chip reveal-up" tabindex="0">Explaining Complex Models to Non-Technical Stakeholders</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CONTACT ======================== -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="section-label reveal-up"><span class="mono accent">06.</span> Contact</div>
+      <h2 id="contact-heading" class="section-title reveal-up">Let's Build Something</h2>
+      <p class="contact-sub reveal-up">Open to ML Engineer roles, collaborations, and interesting problems. Drop a message below.</p>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal-left">
+          <div class="contact-info-item">
+            <span class="ci-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </span>
+            <a href="mailto:akshayyy201@gmail.com">akshayyy201@gmail.com</a>
+          </div>
+          <div class="contact-info-item">
+            <span class="ci-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            <a href="tel:8590006364">8590006364</a>
+          </div>
+          <div class="contact-info-item">
+            <span class="ci-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </span>
+            <a href="https://www.linkedin.com/in/akshay-c-53bb09368/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+          <div class="contact-info-item">
+            <span class="ci-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </span>
+            <a href="https://github.com/akshay200613" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <form id="contact-form" class="contact-form glass-card reveal-right" novalidate aria-label="Contact form">
+          <div class="form-group">
+            <label for="form-name">Name</label>
+            <input type="text" id="form-name" name="name" placeholder="Your name" required autocomplete="name" />
+            <span class="field-error" id="name-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="form-email">Email</label>
+            <input type="email" id="form-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+            <span class="field-error" id="email-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="form-message">Message</label>
+            <textarea id="form-message" name="message" rows="5" placeholder="Tell me about your project or opportunity..." required></textarea>
+            <span class="field-error" id="message-error" role="alert"></span>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" id="submit-btn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+          <div id="form-success" class="form-success" role="status" aria-live="polite" hidden>
+            <span>✓</span> 
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy mono">
+        &lt;built by <span class="accent">Akshay C</span> /&gt; · <span id="footer-year"></span>
+      </p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/akshay-c-53bb09368" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/akshay200613" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <a href="mailto:akshayyy201@gmail.com" aria-label="Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
