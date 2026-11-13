@@ -429,11 +429,11 @@ function startTypewriter() {
 
 
 /* ─────────────────────────────────────────────────────────────
-   12. CONTACT FORM — validation + FormSubmit
+   12. CONTACT FORM — validation + FormSubmit.co email relay
    ───────────────────────────────────────────────────────────── */
 (function initContactForm() {
-  const form    = document.getElementById('contact-form');
-  const success = document.getElementById('form-success');
+  const form      = document.getElementById('contact-form');
+  const success   = document.getElementById('form-success');
   const submitBtn = document.getElementById('submit-btn');
   if (!form) return;
 
@@ -442,7 +442,7 @@ function startTypewriter() {
     const err   = document.getElementById(errorId);
     if (!input || !err) return;
     if (msg) { input.classList.add('error'); err.textContent = msg; }
-    else { input.classList.remove('error'); err.textContent = ''; }
+    else      { input.classList.remove('error'); err.textContent = ''; }
   }
 
   function validate() {
@@ -451,8 +451,8 @@ function startTypewriter() {
     const email   = document.getElementById('form-email').value.trim();
     const message = document.getElementById('form-message').value.trim();
 
-    if (!name)   { setError('form-name',    'name-error',    '// Name is required'); ok = false; }
-    else           setError('form-name', 'name-error', '');
+    if (!name) { setError('form-name', 'name-error', '// Name is required'); ok = false; }
+    else         setError('form-name', 'name-error', '');
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('form-email', 'email-error', '// Valid email required'); ok = false;
@@ -470,22 +470,50 @@ function startTypewriter() {
     if (!validate()) return;
 
     // Loading state
-    const btnText = submitBtn.querySelector('.btn-text');
+    const btnText  = submitBtn.querySelector('.btn-text');
     const origText = btnText.textContent;
     btnText.textContent = 'Sending...';
-    submitBtn.disabled = true;
+    submitBtn.disabled  = true;
 
-    // Simulate send (replace with actual endpoint like FormSubmit)
-    await new Promise(r => setTimeout(r, 900));
+    const name    = document.getElementById('form-name').value.trim();
+    const email   = document.getElementById('form-email').value.trim();
+    const message = document.getElementById('form-message').value.trim();
 
-    if (success) {
-      success.removeAttribute('hidden');
-      success.innerHTML = `<span>✓</span> Message sent! I'll get back to you soon.`;
-      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/akshayyy201@gmail.com', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject:  `Portfolio message from ${name}`,
+          _captcha:  'false',
+          _template: 'table'
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success === 'true') {
+        // Show success only after confirmed delivery
+        if (success) {
+          success.removeAttribute('hidden');
+          success.innerHTML = `<span>✓</span> Message sent! I'll get back to you soon.`;
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        form.reset();
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      // Show inline error without hiding the form
+      setError('form-message', 'message-error', '// Failed to send. Please email akshayyy201@gmail.com directly.');
+      console.error('FormSubmit error:', err);
+    } finally {
+      submitBtn.disabled  = false;
+      btnText.textContent = origText;
     }
-    form.reset();
-    submitBtn.disabled = false;
-    btnText.textContent = origText;
   });
 
   // Live validation
