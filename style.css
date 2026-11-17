@@ -238,51 +238,140 @@ img { display: block; max-width: 100%; }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* ── Aurora Background Orbs ─────────────────────────── */
+/* Animated mesh gradient behind everything */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 20%,  rgba(0, 245, 255, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 80%,  rgba(124, 58, 237, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,  rgba(244, 114, 182, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 80% 10%,  rgba(0, 245, 255, 0.04) 0%, transparent 55%);
+  animation: mesh-shift 20s ease-in-out infinite alternate;
+}
+@keyframes mesh-shift {
+  0%   { background-position: 0% 0%, 100% 100%, 50% 50%, 80% 10%; }
+  100% { background-position: 15% 15%, 85% 85%, 60% 40%, 70% 20%; }
+}
+
+/* Animated dot grid overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(0,245,255,0.18) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 80%);
+  opacity: 0.25;
+  animation: grid-pan 30s linear infinite;
+}
+@keyframes grid-pan {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
 .aurora-orb {
   position: fixed;
   border-radius: 50%;
-  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.25;
-  will-change: transform;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
 }
 
 .aurora-orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0, 245, 255, 0.4), transparent 70%);
-  top: -200px; left: -200px;
-  animation: orb-drift-1 20s ease-in-out infinite;
+  width: 900px; height: 900px;
+  background: radial-gradient(circle at 40% 40%,
+    rgba(0, 245, 255, 0.55) 0%,
+    rgba(0, 200, 255, 0.25) 35%,
+    transparent 70%);
+  filter: blur(90px);
+  top: -300px; left: -300px;
+  opacity: 0.45;
+  animation: orb-drift-1 22s ease-in-out infinite;
 }
 
 .aurora-orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.35), transparent 70%);
-  bottom: -150px; right: -150px;
-  animation: orb-drift-2 25s ease-in-out infinite;
+  width: 750px; height: 750px;
+  background: radial-gradient(circle at 60% 60%,
+    rgba(124, 58, 237, 0.65) 0%,
+    rgba(100, 40, 220, 0.25) 35%,
+    transparent 70%);
+  filter: blur(80px);
+  bottom: -200px; right: -200px;
+  opacity: 0.45;
+  animation: orb-drift-2 28s ease-in-out infinite;
 }
 
 .aurora-orb-3 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(244, 114, 182, 0.25), transparent 70%);
-  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(244, 114, 182, 0.55) 0%,
+    rgba(220, 80, 160, 0.20) 35%,
+    transparent 70%);
+  filter: blur(70px);
+  top: 40%; left: 55%;
   transform: translate(-50%, -50%);
+  opacity: 0.35;
   animation: orb-drift-3 18s ease-in-out infinite;
+}
+
+/* Extra orbs for depth */
+.aurora-orb-4 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(0, 245, 180, 0.4) 0%,
+    rgba(0, 200, 150, 0.15) 40%,
+    transparent 70%);
+  filter: blur(90px);
+  top: 60%; left: 5%;
+  opacity: 0.35;
+  animation: orb-drift-4b 24s ease-in-out infinite;
+}
+
+.aurora-orb-5 {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255, 180, 50, 0.25) 0%,
+    rgba(255, 140, 0, 0.10) 40%,
+    transparent 70%);
+  filter: blur(80px);
+  top: 10%; right: 10%;
+  opacity: 0.30;
+  animation: orb-drift-5 32s ease-in-out infinite;
 }
 
 @keyframes orb-drift-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(80px, 60px) scale(1.1); }
-  66%  { transform: translate(-40px, 100px) scale(0.9); }
+  25%  { transform: translate(120px, 80px) scale(1.12); }
+  50%  { transform: translate(60px, 160px) scale(0.95); }
+  75%  { transform: translate(-60px, 100px) scale(1.08); }
 }
 @keyframes orb-drift-2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(-70px, -80px) scale(1.15); }
-  66%  { transform: translate(60px, -40px) scale(0.95); }
+  25%  { transform: translate(-100px, -120px) scale(1.15); }
+  50%  { transform: translate(-40px, -60px) scale(0.9); }
+  75%  { transform: translate(80px, -100px) scale(1.1); }
 }
 @keyframes orb-drift-3 {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; }
-  50%  { transform: translate(-50%, -55%) scale(1.3); opacity: 0.08; }
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.35; }
+  33%  { transform: translate(-55%, -58%) scale(1.25); opacity: 0.5; }
+  66%  { transform: translate(-45%, -45%) scale(0.85); opacity: 0.25; }
+}
+@keyframes orb-drift-4b {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  40%  { transform: translate(80px, -100px) scale(1.2); opacity: 0.5; }
+  70%  { transform: translate(-40px, -60px) scale(0.9); opacity: 0.25; }
+}
+@keyframes orb-drift-5 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  50%  { transform: translate(-80px, 60px) scale(1.3); opacity: 0.45; }
 }
 
 /* ── Navbar ─────────────────────────────────────────── */
@@ -1668,4 +1757,365 @@ section + section::before {
   .soft-skill-chip { font-size: 13px; padding: 11px 20px; }
 
   .section-title { margin-bottom: 44px; }
+}
+
+
+/* ============================================================
+   ENHANCED UI — Extra Transitions, Effects & Polish
+   (appended — no existing rules overridden)
+   ============================================================ */
+
+/* ── 1. Hero name: glitch text effect on hover ─────────────── */
+.hero-name {
+  position: relative;
+}
+.name-first {
+  display: inline-block;
+  transition: letter-spacing 0.4s var(--spring), text-shadow 0.4s;
+}
+.hero-content:hover .name-first {
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 24px rgba(255,255,255,0.08);
+}
+.name-last {
+  position: relative;
+}
+.name-last::before,
+.name-last::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.name-last::before {
+  color: var(--accent-3);
+  clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+  animation: glitch-top 6s infinite linear;
+}
+.name-last::after {
+  color: var(--accent-2);
+  clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+  animation: glitch-bot 6s infinite linear;
+}
+@keyframes glitch-top {
+  0%,89%,91%,100% { opacity:0; transform:translate(0); }
+  90% { opacity:0.7; transform:translate(-3px, -2px); }
+}
+@keyframes glitch-bot {
+  0%,91%,93%,100% { opacity:0; transform:translate(0); }
+  92% { opacity:0.7; transform:translate(3px, 2px); }
+}
+
+/* ── 2. Section titles: animated underline sweep ───────────── */
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  box-shadow: var(--glow-sm);
+  transition: width 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s;
+}
+.section-title.visible::after,
+.reveal-up.visible ~ .section-title::after {
+  width: 100%;
+}
+/* trigger when parent reveal fires */
+[class*="reveal"].visible .section-title::after { width: 100%; }
+
+/* ── 3. Glass cards: coloured top-border glow on hover ─────── */
+.glass-card {
+  --card-accent: var(--accent);
+}
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s, left 0.4s, right 0.4s;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+}
+.glass-card:hover::before {
+  opacity: 1;
+  left: 5%; right: 5%;
+}
+
+/* ── 4. Project cards: animated gradient border on hover ────── */
+.project-card {
+  --angle: 0deg;
+}
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--radius-md) + 1px);
+  background: conic-gradient(
+    from var(--angle),
+    transparent 70%,
+    var(--accent) 85%,
+    var(--accent-2) 92%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 0;
+  pointer-events: none;
+}
+.project-card:hover::after {
+  opacity: 0.6;
+  animation: spin-border 3s linear infinite;
+}
+@keyframes spin-border {
+  to { --angle: 360deg; }
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ── 5. Skill tags: rainbow shimmer on category hover ──────── */
+.skill-category:hover .skill-tag:nth-child(3n+1) { border-color: rgba(0,245,255,0.5); color: var(--accent); }
+.skill-category:hover .skill-tag:nth-child(3n+2) { border-color: rgba(124,58,237,0.5); color: #a78bfa; }
+.skill-category:hover .skill-tag:nth-child(3n+3) { border-color: rgba(244,114,182,0.5); color: var(--accent-3); }
+
+/* ── 6. Stat cards: inner glow pulse ───────────────────────── */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 110%, rgba(0,245,255,0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 0;
+}
+.stat-card:hover::before { opacity: 1; }
+
+/* ── 7. Timeline dots: staggered pulse colours ──────────────── */
+.timeline-item:nth-child(2) .timeline-dot {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 8px rgba(124,58,237,0.6);
+}
+.timeline-item:nth-child(3) .timeline-dot {
+  border-color: var(--accent-3);
+  box-shadow: 0 0 8px rgba(244,114,182,0.6);
+}
+.timeline-item:nth-child(4) .timeline-dot {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+@keyframes dot-pulse-2 {
+  0%,100% { box-shadow: 0 0 8px rgba(124,58,237,0.6), 0 0 0 0 rgba(124,58,237,0.3); }
+  50%      { box-shadow: 0 0 16px rgba(124,58,237,0.8), 0 0 0 8px rgba(124,58,237,0); }
+}
+@keyframes dot-pulse-3 {
+  0%,100% { box-shadow: 0 0 8px rgba(244,114,182,0.6), 0 0 0 0 rgba(244,114,182,0.3); }
+  50%      { box-shadow: 0 0 16px rgba(244,114,182,0.8), 0 0 0 8px rgba(244,114,182,0); }
+}
+.timeline-item:nth-child(2) .timeline-dot { animation: dot-pulse-2 3s ease infinite 1s; }
+.timeline-item:nth-child(3) .timeline-dot { animation: dot-pulse-3 3s ease infinite 2s; }
+
+/* ── 8. Contact form: input focus glow ──────────────────────── */
+#contact-form input,
+#contact-form textarea {
+  position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, transform 0.2s;
+}
+#contact-form input:focus,
+#contact-form textarea:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 20px rgba(0,245,255,0.1), 0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* ── 9. Nav logo: scanline flicker ──────────────────────────── */
+.nav-logo::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(0,245,255,0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  animation: scanlines 0.6s linear infinite;
+}
+.nav-logo:hover::after { opacity: 1; }
+@keyframes scanlines {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 8px; }
+}
+
+/* ── 10. Buttons: ripple on click ───────────────────────────── */
+.btn {
+  --ripple-x: 50%;
+  --ripple-y: 50%;
+}
+.btn .ripple {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transform: translate(-50%,-50%) scale(0);
+  animation: ripple-out 0.55s ease-out forwards;
+  pointer-events: none;
+  left: var(--ripple-x);
+  top:  var(--ripple-y);
+}
+@keyframes ripple-out {
+  to { transform: translate(-50%,-50%) scale(28); opacity: 0; }
+}
+
+/* ── 11. Soft skill chips: staggered float ──────────────────── */
+.soft-skill-chip {
+  animation: chip-float 4s ease-in-out infinite;
+}
+.soft-skill-chip:nth-child(2) { animation-delay: 0.4s; }
+.soft-skill-chip:nth-child(3) { animation-delay: 0.8s; }
+.soft-skill-chip:nth-child(4) { animation-delay: 1.2s; }
+.soft-skill-chip:nth-child(5) { animation-delay: 1.6s; }
+@keyframes chip-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.soft-skill-chip:hover {
+  animation: none;
+  transform: translateY(-6px) scale(1.04);
+}
+
+/* ── 12. Section backgrounds: subtle noise texture ──────────── */
+#hero::before,
+#about::before {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(0,245,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 80% 100%, rgba(124,58,237,0.05) 0%, transparent 60%);
+}
+
+/* ── 13. Hero tagline: word-by-word shimmer ─────────────────── */
+.hero-tagline {
+  background: linear-gradient(
+    90deg,
+    var(--text-2) 0%,
+    rgba(238,238,248,0.9) 40%,
+    var(--text-2) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: tagline-shimmer 6s ease-in-out infinite 2s;
+}
+@keyframes tagline-shimmer {
+  0%,100% { background-position: 0% 0%; }
+  50%      { background-position: 100% 0%; }
+}
+
+/* ── 14. Project bullet arrows: stagger slide ───────────────── */
+.project-card:hover .project-bullets li:nth-child(1)::before { transition-delay: 0.00s; }
+.project-card:hover .project-bullets li:nth-child(2)::before { transition-delay: 0.05s; }
+.project-card:hover .project-bullets li:nth-child(3)::before { transition-delay: 0.10s; }
+.project-card:hover .project-bullets li:nth-child(4)::before { transition-delay: 0.15s; }
+
+/* ── 15. Footer: gradient glow line above ───────────────────── */
+footer::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+  animation: footer-line 4s ease-in-out infinite;
+}
+@keyframes footer-line {
+  0%,100% { opacity: 0.3; }
+  50%      { opacity: 0.8; }
+}
+
+/* ── 16. Stack tags: individual float on hover ──────────────── */
+.project-stack .stack-tag {
+  transition: all 0.25s var(--spring);
+}
+.project-stack .stack-tag:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 0 14px rgba(0,245,255,0.25);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ── 17. Contact info items: left-slide accent bar ──────────── */
+.contact-info-item {
+  position: relative;
+  padding-left: 0;
+  transition: padding-left 0.3s var(--spring);
+}
+.contact-info-item::before {
+  content: '';
+  position: absolute;
+  left: -16px; top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 2px; height: 60%;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  transition: transform 0.3s var(--spring);
+}
+.contact-info-item:hover { padding-left: 10px; }
+.contact-info-item:hover::before { transform: translateY(-50%) scaleY(1); }
+
+/* ── 18. Aurora orbs: extra 4th orb for depth — handled via HTML orbs above ── */
+
+/* ── 19. Scroll progress bar: wider glow ───────────────────── */
+#scroll-progress {
+  height: 3px;
+  box-shadow: 0 0 10px var(--accent), 0 0 24px var(--accent-glow);
+}
+
+/* ── 20. Cert badge: shimmer sweep ──────────────────────────── */
+.cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(0,245,255,0.05);
+  border: 1px solid rgba(0,245,255,0.18);
+  font-size: 12px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.cert-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(105deg, transparent 40%, rgba(0,245,255,0.18) 50%, transparent 60%);
+  animation: cert-shimmer 3.5s ease infinite;
+}
+@keyframes cert-shimmer {
+  0%   { left: -100%; }
+  60%  { left: 150%; }
+  100% { left: 150%; }
+}
+.timeline-card:hover .cert-badge {
+  box-shadow: 0 0 14px rgba(0,245,255,0.2);
+  border-color: var(--accent);
 }

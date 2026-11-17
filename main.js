@@ -161,14 +161,20 @@ function triggerHeroReveal() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  const ACCENT = '0, 245, 255';
-  const PURPLE  = '124, 58, 237';
+  const COLORS = [
+    '0, 245, 255',    // cyan
+    '124, 58, 237',   // purple
+    '244, 114, 182',  // pink
+    '0, 245, 180',    // teal-green
+    '255, 200, 80',   // gold (rare)
+  ];
+
   let W, H, particles;
-  let mouse = { x: null, y: null };
+  let mouse = { x: null, y: null, down: false };
 
   const isMobile = () => window.innerWidth < 768;
-  const COUNT    = () => isMobile() ? 45 : 100;
-  const MAX_DIST = () => isMobile() ? 110 : 170;
+  const COUNT    = () => isMobile() ? 70 : 160;
+  const MAX_DIST = () => isMobile() ? 130 : 200;
 
   function resize() {
     W = canvas.width  = canvas.offsetWidth;
@@ -177,57 +183,94 @@ function triggerHeroReveal() {
   }
 
   function buildParticles() {
-    particles = Array.from({ length: COUNT() }, () => ({
-      x:     Math.random() * W,
-      y:     Math.random() * H,
-      vx:    (Math.random() - 0.5) * 0.35,
-      vy:    (Math.random() - 0.5) * 0.35,
-      r:     Math.random() * 1.8 + 0.5,
-      alpha: Math.random() * 0.4 + 0.1,
-      color: Math.random() > 0.85 ? PURPLE : ACCENT
-    }));
+    particles = Array.from({ length: COUNT() }, () => {
+      const rnd = Math.random();
+      const color = rnd > 0.92 ? COLORS[4]      // 8%  gold
+                  : rnd > 0.78 ? COLORS[2]       // 14% pink
+                  : rnd > 0.58 ? COLORS[1]       // 20% purple
+                  : rnd > 0.30 ? COLORS[3]       // 28% teal
+                  : COLORS[0];                   // 30% cyan
+      const isLarge = Math.random() > 0.85;
+      return {
+        x:     Math.random() * W,
+        y:     Math.random() * H,
+        vx:    (Math.random() - 0.5) * 0.5,
+        vy:    (Math.random() - 0.5) * 0.5,
+        r:     isLarge ? Math.random() * 2.8 + 1.5 : Math.random() * 1.5 + 0.4,
+        alpha: isLarge ? Math.random() * 0.6 + 0.3 : Math.random() * 0.5 + 0.15,
+        color,
+        pulse: Math.random() * Math.PI * 2,  // phase offset for twinkle
+        isLarge,
+        halo:  Math.random() > 0.75          // some get a glow halo
+      };
+    });
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
     const maxD = MAX_DIST();
+    const t = Date.now() * 0.001;
 
     particles.forEach((p, i) => {
+      // Twinkle: oscillate alpha
+      const twinkle = p.isLarge
+        ? p.alpha + Math.sin(t * 1.4 + p.pulse) * 0.18
+        : p.alpha + Math.sin(t * 2.2 + p.pulse) * 0.08;
+
       // Move
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
       if (p.y < 0 || p.y > H) p.vy *= -1;
 
-      // Mouse repulsion
+      // Mouse interaction — repulsion + subtle attraction ring
       if (mouse.x !== null) {
         const dx = p.x - mouse.x, dy = p.y - mouse.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 130) {
-          const force = (130 - dist) / 130 * 0.32;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
-          const spd = Math.hypot(p.vx, p.vy);
-          if (spd > 1.8) { p.vx = (p.vx / spd) * 1.8; p.vy = (p.vy / spd) * 1.8; }
+        if (dist < 150 && dist > 0) {
+          const force = (150 - dist) / 150;
+          // inner zone: repel; outer ring: gentle attract
+          const dir = dist < 80 ? 1 : -0.3;
+          p.vx += (dx / dist) * force * 0.4 * dir;
+          p.vy += (dy / dist) * force * 0.4 * dir;
         }
+        // clamp speed
+        const spd = Math.hypot(p.vx, p.vy);
+        if (spd > 2.2) { p.vx = (p.vx / spd) * 2.2; p.vy = (p.vy / spd) * 2.2; }
       }
 
-      // Draw dot
+      // Draw halo glow for large particles
+      if (p.halo) {
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+        grad.addColorStop(0, `rgba(${p.color}, ${twinkle * 0.5})`);
+        grad.addColorStop(1, `rgba(${p.color}, 0)`);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+
+      // Draw core dot
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+      ctx.fillStyle = `rgba(${p.color}, ${Math.max(0, Math.min(1, twinkle))})`;
       ctx.fill();
 
-      // Draw connections
+      // Draw connections with colour blending
       for (let j = i + 1; j < particles.length; j++) {
         const q  = particles[j];
         const dx = p.x - q.x, dy = p.y - q.y;
         const dist = Math.hypot(dx, dy);
         if (dist < maxD) {
+          const opacity = (1 - dist / maxD) * 0.28;
+          // gradient line between two particle colours
+          const grad = ctx.createLinearGradient(p.x, p.y, q.x, q.y);
+          grad.addColorStop(0, `rgba(${p.color}, ${opacity})`);
+          grad.addColorStop(1, `rgba(${q.color}, ${opacity})`);
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-          const opacity = (1 - dist / maxD) * 0.16;
-          ctx.strokeStyle = `rgba(${ACCENT}, ${opacity})`;
-          ctx.lineWidth = 0.5;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = dist < maxD * 0.4 ? 1.0 : 0.5;
           ctx.stroke();
         }
       }
@@ -601,4 +644,101 @@ function startTypewriter() {
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   16. ENHANCED UI — Ripple, Glitch text, Section title reveal
+   ───────────────────────────────────────────────────────────── */
+(function initEnhancements() {
+
+  /* -- A. Button ripple effect -- */
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const rect   = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      ripple.style.left = (e.clientX - rect.left) + 'px';
+      ripple.style.top  = (e.clientY - rect.top)  + 'px';
+      btn.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+    });
+  });
+
+  /* -- B. Set data-text on .name-last for glitch CSS -- */
+  const nameLast = document.querySelector('.name-last');
+  if (nameLast) nameLast.setAttribute('data-text', nameLast.textContent);
+
+  /* -- C. Section titles: add .visible class when parent reveal fires -- */
+  const sectionTitles = document.querySelectorAll('.section-title');
+  const titleObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        titleObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  sectionTitles.forEach(t => titleObs.observe(t));
+
+  /* -- D. Parallax depth on project cards (subtle) -- */
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect  = card.getBoundingClientRect();
+        const cx    = (e.clientX - rect.left - rect.width  / 2) / rect.width;
+        const cy    = (e.clientY - rect.top  - rect.height / 2) / rect.height;
+        const inner = card.querySelector('.project-card-inner');
+        if (inner) inner.style.transform = `translate(${cx * 5}px, ${cy * 5}px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        const inner = card.querySelector('.project-card-inner');
+        if (inner) inner.style.transform = '';
+      });
+    });
+  }
+
+  /* -- E. Stagger timeline cards on reveal -- */
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    item.style.transitionDelay = `${i * 0.12}s`;
+  });
+
+  /* -- F. Cursor trail: leave fading dots on fast movement -- */
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    let lastTrail = 0;
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastTrail < 60) return;
+      lastTrail = now;
+      const dot = document.createElement('div');
+      dot.style.cssText = `
+        position:fixed; left:${e.clientX}px; top:${e.clientY}px;
+        width:4px; height:4px; border-radius:50%;
+        background:rgba(0,245,255,0.5);
+        pointer-events:none; z-index:9995;
+        transform:translate(-50%,-50%);
+        transition:opacity 0.6s, transform 0.6s;
+        box-shadow:0 0 6px rgba(0,245,255,0.6);
+      `;
+      document.body.appendChild(dot);
+      requestAnimationFrame(() => {
+        dot.style.opacity    = '0';
+        dot.style.transform  = 'translate(-50%,-50%) scale(2.5)';
+      });
+      setTimeout(() => dot.remove(), 650);
+    });
+  }
+
+  /* -- G. Skill category: icon spin on category focus/hover -- */
+  document.querySelectorAll('.skill-category').forEach(cat => {
+    cat.addEventListener('mouseenter', () => {
+      const icon = cat.querySelector('.skill-icon');
+      if (icon) icon.style.transform = 'rotate(12deg) scale(1.15)';
+    });
+    cat.addEventListener('mouseleave', () => {
+      const icon = cat.querySelector('.skill-icon');
+      if (icon) icon.style.transform = '';
+    });
+  });
+
 })();
