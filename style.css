@@ -1441,6 +1441,35 @@ section {
   to   { transform: scale(1); opacity: 1; }
 }
 
+/* Full-form success replacement state */
+.form-sent-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 56px 32px;
+  text-align: center;
+  animation: success-pop 0.5s var(--spring) both;
+}
+.sent-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+.sent-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+}
+.sent-body {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 280px;
+  line-height: 1.6;
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */

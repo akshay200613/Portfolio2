@@ -429,11 +429,10 @@ function startTypewriter() {
 
 
 /* ─────────────────────────────────────────────────────────────
-   12. CONTACT FORM — validation + FormSubmit.co email relay
+   12. CONTACT FORM — validation + Web3Forms email relay
    ───────────────────────────────────────────────────────────── */
 (function initContactForm() {
   const form      = document.getElementById('contact-form');
-  const success   = document.getElementById('form-success');
   const submitBtn = document.getElementById('submit-btn');
   if (!form) return;
 
@@ -443,6 +442,16 @@ function startTypewriter() {
     if (!input || !err) return;
     if (msg) { input.classList.add('error'); err.textContent = msg; }
     else      { input.classList.remove('error'); err.textContent = ''; }
+  }
+
+  function clearAllErrors() {
+    ['form-name', 'form-email', 'form-message'].forEach(id => {
+      const input = document.getElementById(id);
+      const errId = id.replace('form-', '') + '-error';
+      const err   = document.getElementById(errId);
+      if (input) input.classList.remove('error');
+      if (err)   err.textContent = '';
+    });
   }
 
   function validate() {
@@ -465,58 +474,67 @@ function startTypewriter() {
     return ok;
   }
 
+  function showSuccess() {
+    // Replace the entire form with a prominent success state
+    form.innerHTML = `
+      <div class="form-sent-state" role="status" aria-live="polite">
+        <div class="sent-icon" aria-hidden="true">✅</div>
+        <h3 class="sent-title">Message Sent!</h3>
+        <p class="sent-body">Thanks for reaching out. I'll get back to you soon.</p>
+      </div>
+    `;
+  }
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Loading state
+    // Lock the button — loading state
     const btnText  = submitBtn.querySelector('.btn-text');
+    const btnArrow = submitBtn.querySelector('.btn-arrow');
     const origText = btnText.textContent;
-    btnText.textContent = 'Sending...';
-    submitBtn.disabled  = true;
+    btnText.textContent = 'Sending…';
+    if (btnArrow) btnArrow.style.display = 'none';
+    submitBtn.disabled = true;
 
     const name    = document.getElementById('form-name').value.trim();
     const email   = document.getElementById('form-email').value.trim();
     const message = document.getElementById('form-message').value.trim();
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/akshayyy201@gmail.com', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          access_key: '75db7825-8493-4201-9681-12a1b0a2b4b0',
           name,
           email,
           message,
-          _subject:  `Portfolio message from ${name}`,
-          _captcha:  'false',
-          _template: 'table'
+          subject: `Portfolio message from ${name}`
         })
       });
 
       const data = await res.json();
 
-      if (res.ok && data.success === 'true') {
-        // Show success only after confirmed delivery
-        if (success) {
-          success.removeAttribute('hidden');
-          success.innerHTML = `<span>✓</span> Message sent! I'll get back to you soon.`;
-          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        form.reset();
+      if (res.ok && data.success) {
+        // ✅ Only show success AFTER confirmed API response
+        showSuccess();
       } else {
         throw new Error(data.message || 'Submission failed');
       }
     } catch (err) {
-      // Show inline error without hiding the form
-      setError('form-message', 'message-error', '// Failed to send. Please email akshayyy201@gmail.com directly.');
-      console.error('FormSubmit error:', err);
-    } finally {
-      submitBtn.disabled  = false;
+      // Show error inline — do NOT show success
+      setError('form-message', 'message-error',
+        '// Send failed. Please email akshayyy201@gmail.com directly.');
+      console.error('Web3Forms error:', err);
+      // Re-enable button so user can retry
+      submitBtn.disabled = false;
       btnText.textContent = origText;
+      if (btnArrow) btnArrow.style.display = '';
     }
   });
 
-  // Live validation
+  // Live validation on input
   ['form-name', 'form-email', 'form-message'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', validate);
