@@ -475,14 +475,29 @@ function startTypewriter() {
   }
 
   function showSuccess() {
-    // Replace the entire form with a prominent success state
-    form.innerHTML = `
-      <div class="form-sent-state" role="status" aria-live="polite">
-        <div class="sent-icon" aria-hidden="true">✅</div>
-        <h3 class="sent-title">Message Sent!</h3>
-        <p class="sent-body">Thanks for reaching out. I'll get back to you soon.</p>
+    // Show success banner below the button — keep the form visible
+    let banner = document.getElementById('form-success-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'form-success-banner';
+      banner.setAttribute('role', 'status');
+      banner.setAttribute('aria-live', 'polite');
+      banner.className = 'form-success-banner';
+      form.appendChild(banner);
+    }
+    banner.innerHTML = `
+      <span class="fsb-icon" aria-hidden="true">✅</span>
+      <div class="fsb-text">
+        <strong>Message sent successfully!</strong>
+        <span>Thanks for reaching out — I'll get back to you soon.</span>
       </div>
     `;
+    banner.classList.add('fsb-visible');
+    banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    form.reset();
+
+    // Hide banner after 8 seconds
+    setTimeout(() => banner.classList.remove('fsb-visible'), 8000);
   }
 
   form.addEventListener('submit', async e => {

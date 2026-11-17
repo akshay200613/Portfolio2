@@ -1470,6 +1470,59 @@ section {
   line-height: 1.6;
 }
 
+/* Inline success banner (keeps form visible) */
+.form-success-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 245, 255, 0.07);
+  border: 1px solid var(--border-accent);
+  color: var(--text);
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.form-success-banner.fsb-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.fsb-icon { font-size: 1.5rem; flex-shrink: 0; }
+.fsb-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fsb-text strong {
+  color: var(--accent);
+  font-size: 15px;
+}
+.fsb-text span {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Cert link button */
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s, gap 0.2s;
+}
+.cert-link:hover { opacity: 1; gap: 9px; }
+.cert-link svg { flex-shrink: 0; }
+
 /* ============================================================
    FOOTER
    ============================================================ */
