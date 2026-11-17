@@ -162,11 +162,11 @@ function triggerHeroReveal() {
   const ctx = canvas.getContext('2d');
 
   const COLORS = [
-    '0, 245, 255',    // cyan
-    '124, 58, 237',   // purple
-    '244, 114, 182',  // pink
-    '0, 245, 180',    // teal-green
-    '255, 200, 80',   // gold (rare)
+    '16, 185, 129',   // emerald primary
+    '52, 211, 153',   // emerald light
+    '5, 150, 105',    // emerald deep
+    '110, 231, 183',  // emerald soft
+    '16, 185, 129',   // emerald primary
   ];
 
   let W, H, particles;
@@ -529,7 +529,9 @@ function startTypewriter() {
       form.appendChild(banner);
     }
     banner.innerHTML = `
-      <span class="fsb-icon" aria-hidden="true">✅</span>
+      <span class="fsb-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
       <div class="fsb-text">
         <strong>Message sent successfully!</strong>
         <span>Thanks for reaching out — I'll get back to you soon.</span>
@@ -714,11 +716,11 @@ function startTypewriter() {
       dot.style.cssText = `
         position:fixed; left:${e.clientX}px; top:${e.clientY}px;
         width:4px; height:4px; border-radius:50%;
-        background:rgba(0,245,255,0.5);
+        background:rgba(16,185,129,0.5);
         pointer-events:none; z-index:9995;
         transform:translate(-50%,-50%);
         transition:opacity 0.6s, transform 0.6s;
-        box-shadow:0 0 6px rgba(0,245,255,0.6);
+        box-shadow:0 0 6px rgba(16,185,129,0.5);
       `;
       document.body.appendChild(dot);
       requestAnimationFrame(() => {
